@@ -6,7 +6,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=%h/tst/wallaura/wallaura.py
+ExecStart=%h/wallaura/wallaura.py
 Restart=on-failure
 RestartSec=5
 # Forward journal logs with a tag

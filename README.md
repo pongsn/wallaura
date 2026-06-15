@@ -42,8 +42,8 @@ sudo apt install python3-dbus python3-gi python3-pil
 ### 1. Clone the repository
 
 ```bash
-git clone <repo-url> ~/tst/wallaura
-cd ~/tst/wallaura
+git clone https://github.com/pongsn/wallaura.git ~/wallaura
+cd ~/wallaura
 ```
 
 ### 2. Make the script executable
@@ -55,7 +55,7 @@ chmod +x wallaura.py
 ### 3. Add to PATH
 
 ```bash
-ln -sf ~/tst/wallaura/wallaura.py ~/.local/bin/wallaura
+ln -sf ~/wallaura/wallaura.py ~/.local/bin/wallaura
 ```
 
 Verify it is found:
@@ -83,11 +83,25 @@ The service starts automatically on graphical login.
 The daemon is managed via systemctl:
 
 ```bash
-systemctl --user start wallaura      # start
-systemctl --user stop wallaura       # stop
+systemctl --user start wallaura      # start now
+systemctl --user stop wallaura       # stop now
 systemctl --user restart wallaura    # restart (pick up code changes)
 systemctl --user status wallaura     # show running status
 journalctl --user -u wallaura -f     # live log output
+```
+
+To enable or disable automatic startup on login:
+
+```bash
+systemctl --user enable wallaura     # start automatically on login
+systemctl --user disable wallaura    # stop starting automatically on login
+```
+
+Enabling and disabling does not start or stop the currently running service — combine with `start`/`stop` if needed:
+
+```bash
+systemctl --user disable --now wallaura   # disable and stop immediately
+systemctl --user enable --now wallaura    # enable and start immediately
 ```
 
 ### Brightness
