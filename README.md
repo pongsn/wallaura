@@ -4,12 +4,14 @@ Automatically syncs your Lenovo Legion / LOQ keyboard LED zone colors with your 
 
 When the wallpaper changes — whether you change it manually or a slideshow rotates — wallaura analyzes the image, extracts a dominant color from each of its four horizontal sections, and applies those colors to the keyboard's four LED zones in real time.
 
+Works on **any Linux distribution running KDE Plasma** (Arch, Ubuntu, Fedora, openSUSE, …). Supports **any wallpaper image** — custom photos, downloaded images, or KDE's packaged wallpapers — as long as KDE Plasma knows about it.
+
 ---
 
 ## How it works
 
 1. **Detects wallpaper changes** by listening to the `org.kde.PlasmaShell.wallpaperChanged` D-Bus signal emitted by KDE Plasma. This covers both manual changes and automatic slideshow rotations.
-2. **Resolves the image file** via the PlasmaShell D-Bus API. KDE wallpaper packages (directories like `MilkyWay/`) are handled automatically by picking the highest-resolution image inside `contents/images/`.
+2. **Resolves the image file** via the PlasmaShell D-Bus API. Both plain image files (custom wallpapers set to a direct path) and KDE wallpaper packages (directories containing `contents/images/`) are supported. For packages, the highest-resolution image is picked automatically.
 3. **Splits the image** into four equal vertical strips corresponding to the keyboard's four LED zones (left → right).
 4. **Extracts a dominant color** from each strip using median-cut quantization (via Pillow), selecting the color that covers the most pixels rather than a blended average.
 5. **Scales the colors** by the configured brightness factor (default 67%) and sends them to the keyboard via `legionaura static <c1> <c2> <c3> <c4> --brightness 2`.
@@ -18,7 +20,7 @@ When the wallpaper changes — whether you change it manually or a slideshow rot
 
 ## Requirements
 
-- **KDE Plasma** desktop (Wayland or X11)
+- **KDE Plasma** desktop (Wayland or X11) — any Linux distro
 - **[LegionAura](https://github.com/nivedck/LegionAura)** — the `legionaura` CLI must be installed and working
 - **Python 3.10+**
 - Python packages: `dbus-python`, `PyGObject`, `Pillow`
