@@ -1,0 +1,16 @@
+[Unit]
+Description=wallaura — sync keyboard LED zones with desktop wallpaper
+Documentation=https://github.com/nivedck/LegionAura
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/tst/wallaura/wallaura.py
+Restart=on-failure
+RestartSec=5
+# Forward journal logs with a tag
+SyslogIdentifier=wallaura
+
+[Install]
+WantedBy=graphical-session.target
